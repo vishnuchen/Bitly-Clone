@@ -31,13 +31,18 @@ app.post("/urls", (req, res) => {
   console.log(req.body.longURL);  // Log the POST request body to the console
   urlDatabase[shortURL] = req.body.longURL;
   console.log(urlDatabase)
-
   res.redirect(`/urls/${shortURL}`);
 });
 
 app.post("/urls/:shortURL/delete", (req, res) => {
   console.log("Deleted links =" +req.params.shortURL+":" +urlDatabase[req.params.shortURL]);
   delete urlDatabase[req.params.shortURL];
+  res.redirect(`/urls`);
+});
+
+app.post("/urls/:id", (req, res) => {
+  var shortURL = req.params.id;
+  urlDatabase[shortURL] = req.body.longURL;
   res.redirect(`/urls`);
 });
 
