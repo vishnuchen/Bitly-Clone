@@ -12,9 +12,11 @@
 <% include partials/_header.ejs %>
 <!-- views/partials/header.ejs -->
 
+
+
 <h4><b>My URLs</b></h4>
-    <% for(let link in urls){ %>
-    <li><b><%=link%>:</b> <%= urls[link]%></li>
+    <% for(let shortURL in urls){ %>
+    <li><form method="POST" action="/urls/<%=shortURL%>/delete"><button>Delete</button></form><b><%=shortURL%>:</b> <%= urls[shortURL]%></li>
    <% } %>
 
 
