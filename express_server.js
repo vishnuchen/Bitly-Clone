@@ -27,6 +27,29 @@ var urlDatabase = {
   "9sm5xK": "http://www.google.com"
 };
 
+const users = { 
+  "userRandomID": {
+    id: "userRandomID", 
+    email: "user@example.com", 
+    password: "purple-monkey-dinosaur"
+  },
+ "user2RandomID": {
+    id: "user2RandomID", 
+    email: "user2@example.com", 
+    password: "dishwasher-funk"
+  }
+}
+
+function lookupHelper (email) {
+  for (var user in users) {
+    console.log("User test", users[user].email);
+    if (email === users[user].email){
+      return true;
+    }
+  }
+}
+
+
 app.get("/urls/new", (req, res) => {
   res.render("urls_new", {username: req.cookies.username});
 });
@@ -50,6 +73,37 @@ app.get("/u/:shortURL", (req, res) => {
 app.get("/", (req, res) => {
   res.send("Welcome to My APP :)");
 });
+
+app.get("/register", (req, res) => {
+  let templateVars = { username: ""};
+  res.render("registration", templateVars);
+});
+
+app.get("/login", (req, res) => {
+  let templateVars = { username: ""};
+  res.render("login", templateVars);
+  
+});
+
+
+
+app.post("/register", (req, res) => {
+  if (req.body.email === "" || req.body.password === "") {
+    //console.log("400 status");
+    res.status(400).send("Username or Password is empty!");
+  } else if (lookupHelper(req.body.email)){
+    res.status(400).send("Username already exists. Try another.");
+  } else {
+    const newId = generateRandomString();
+    users[newId] = {
+      'id' : newId,
+      'email' : req.body.email,
+      'password' : req.body.password }
+      res.cookie('user_id', newId)
+      console.log(users)
+      res.redirect(`/urls`);
+  }
+ });
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);
