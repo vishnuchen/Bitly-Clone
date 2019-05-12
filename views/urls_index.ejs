@@ -14,11 +14,14 @@
 
 
 <!-- <h4><b>My URLs</b></h4> -->
-    <% for(let shortURL in urls){ %>
+<% if(userID){ %>
+  <% for(let shortURL in urls){ %>
     <%=shortURL%> :<%= urls[shortURL]%> <form method="POST" action="/urls/<%=shortURL%>/delete"> 
       <a href="/urls/<%=shortURL%>"> Edit </a> <button class="btn btn-primary">Delete</button> </form>
     <br>
    <% } %>
+    
+<% } %>
 
 
 </body>
