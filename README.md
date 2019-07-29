@@ -1,4 +1,4 @@
-# Tiny App Project
+# Bitly Clone Project
 
 ## Final product
 - Allows the user to store URL's, shorten them, along with update and delete them.
